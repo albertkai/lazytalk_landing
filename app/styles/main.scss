@@ -114,6 +114,19 @@ $font-family-accent: caviar;
 }
 
 
+body{
+
+    opacity: 0;
+
+    &._ready{
+
+        opacity: 1;
+
+    }
+
+}
+
+
 h1, h2, h3{
 
     text-align: center;
