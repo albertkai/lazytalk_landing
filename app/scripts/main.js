@@ -1,5 +1,7 @@
 $(function(){
 
+    NProgress.start()
+
     var assetsReady = false,
         translationReady = false;
 
@@ -10,6 +12,7 @@ $(function(){
         if (assetsReady || translationReady) {
             setTimeout(function(){
                 $('body').addClass('_ready')
+                NProgress.done()
             }, 300)
         }
     }
