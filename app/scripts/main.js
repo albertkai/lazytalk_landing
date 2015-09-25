@@ -1,8 +1,23 @@
 $(function(){
 
+    var assetsReady = false,
+        translationReady = false;
+
+    var setReady = function(){
+
+        console.log('Setting ready state attempt')
+
+        if (assetsReady || translationReady) {
+            setTimeout(function(){
+                $('body').addClass('_ready')
+            }, 300)
+        }
+    }
+
     $(document).ready(function(){
 
-        $('body').addClass('_ready')
+        assetsReady = true;
+        setReady()
 
     })
 
@@ -24,14 +39,18 @@ $(function(){
         } else {
             return 'en'
         }
-    })();
+    })()
+
 
     $.i18n({
         locale: lang
-    });
+    })
+
 
     $.i18n().load().then(function(){
         $('body').i18n()
+        translationReady = true
+        setReady()
     })
 
 
@@ -50,16 +69,15 @@ $(function(){
 
     var controller = new ScrollMagic.Controller()
 
-
     // Why and top
 
-    var topTween
+    if (!isMobile){
 
-    if (!isMobile) {
-        topTween = new TimelineMax().add([
+        var topTween = new TimelineMax().add([
             TweenMax.to('#top .iphone', 1, {'y': '300', ease: Power0.easeNone}),
             TweenMax.to('#top article', 1, {'y': '300', scale: '.8', 'opacity': '0', ease: Power0.easeNone})
         ])
+
     }
 
     var circlesTween = new TimelineMax().add([
