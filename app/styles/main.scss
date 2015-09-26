@@ -393,6 +393,28 @@ button{
 
     }
 
+    &.stores{
+
+        width: 230px;
+        height: 90px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin: 0 10px;
+
+        &.appstore{
+
+            background-image: url(../images/apple_badge.png);
+
+        }
+
+        &.playstore{
+
+            background-image: url(../images/google_badge.png);
+
+        }
+
+    }
+
 }
 
 
@@ -400,6 +422,21 @@ button{
 
     width: 100%;
     height: 100vh;
+
+    .map{
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-image: url(../images/map.png);
+        background-repeat: no-repeat;
+        -webkit-background-size: 80%;
+        background-size: 80%;
+        background-position: center center;
+
+    }
 
     @media (min-width: $screen-md-min) {
         min-height: 680px;
@@ -494,10 +531,46 @@ button{
             left: 34px;
             height: 504px;
             width: 284px;
-            border-radius: 2px;
-            background-image: url(../images/threads.jpg);
             -webkit-background-size: cover;
             background-size: cover;
+
+            .splash{
+
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                background-image: url(../images/splash.jpg);
+                -webkit-background-size: contain;
+                background-size: contain;
+                border-radius: 2px;
+                z-index: 2;
+                -webkit-transition: all 1s;
+                -moz-transition: all 1s;
+                -ms-transition: all 1s;
+                -o-transition: all 1s;
+                transition: all 1s;
+
+                &._invisible{
+
+                    opacity: 0;
+
+                }
+
+            }
+
+            video{
+
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-right: 2px;
+
+            }
+
         }
 
     }
@@ -1290,7 +1363,54 @@ footer{
 
 }
 
+.resizing{
 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: $zindex-navbar-fixed;
+    background: rgba(255, 255, 255, .85);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    -ms-transition: all .4s;
+    -o-transition: all .4s;
+    transition: all .4s;
+
+    &._resizing{
+
+        opacity: 1;
+        visibility: visible;
+
+    }
+
+    h2{
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        color: $gray;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+
+        i{
+
+            font-size: 70px;
+            margin: 20px;
+
+        }
+
+        p{
+            font-size: 50px;
+        }
+
+    }
+
+}
 
 // NProgress
 

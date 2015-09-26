@@ -1,76 +1,19 @@
-$(function(){
+var controller;
+var isMobile;
 
-    NProgress.start()
-
-    var assetsReady = false,
-        translationReady = false;
-
-    var setReady = function(){
-
-        console.log('Setting ready state attempt')
-
-        if (assetsReady || translationReady) {
-            setTimeout(function(){
-                $('body').addClass('_ready')
-                NProgress.done()
-            }, 300)
-        }
-    }
-
-    $(document).ready(function(){
-
-        assetsReady = true;
-        setReady()
-
-    })
+var initialize = function(){
 
     // Detect mobile with response.js library
 
-    var isMobile = Response.deviceW() < 767
+    isMobile = Response.deviceW() < 767
 
     // Setting nice ios-like scrolling for mobile
 
     if (isMobile) $('html').niceScroll()
 
-    // Setting locale (only russian and english versions now)
-
-    var lang = window.navigator.userLanguage || window.navigator.language
-
-    lang = (function(){
-        if (lang === 'ru') {
-            return 'ru'
-        } else {
-            return 'en'
-        }
-    })()
-
-
-    $.i18n({
-        locale: lang
-    })
-
-
-    $.i18n().load().then(function(){
-        $('body').i18n()
-        translationReady = true
-        setReady()
-    })
-
-
-    $('.lang-switch').on('click', function(){
-        lang = $(this).text().toLowerCase()
-        $.i18n({
-            locale: lang
-        });
-        $.i18n().load().then(function(){
-            $('body').i18n()
-        })
-    })
-
-
     // Scrolling Animation
 
-    var controller = new ScrollMagic.Controller()
+    controller = new ScrollMagic.Controller()
 
     // Why and top
 
@@ -141,5 +84,129 @@ $(function(){
         new ScrollMagic.Scene({duration: $(window).height(), triggerElement: '#teaser', offset: $(window).height() / 2 * -1}).setTween(parallaxTween).addTo(controller)
 
     }
+
+}
+
+$(function(){
+
+    NProgress.start()
+
+    var assetsReady = false,
+        translationReady = false;
+
+    var setReady = function(){
+
+        console.log('Setting ready state attempt')
+
+        if (assetsReady || translationReady) {
+            setTimeout(function(){
+                $('body').addClass('_ready')
+                NProgress.done()
+            }, 300)
+        }
+    }
+
+    $(document).ready(function(){
+
+        assetsReady = true;
+        setReady()
+
+    })
+
+    video = document.getElementById('ui-video')
+
+    var videoCallback  = function(){
+        console.log('Video is ready')
+        setTimeout(function(){
+            video.play()
+            setTimeout(function(){
+                $('.splash').addClass('_invisible')
+            }, 500)
+        }, 300)
+
+
+    }
+
+    video.addEventListener('oncanplay', function(){
+        videoCallback()
+    }, false)
+
+    video.addEventListener('oncanplaythrough', function(){
+        videoCallback()
+    }, false)
+
+    if (video.readyState > 3) {
+        videoCallback()
+    }
+
+    $('#top').find('video').on('load', function(){
+
+        console.log('Video loaded')
+
+    })
+
+    // There are lots of device specific scripts, so it was
+    // decided to reload the page after resize if its needed, and
+    // to show a splash screen on progess (a little dirty)
+
+    var addResizeScreen = _.once(function(){
+        console.log('Resize screen visible')
+        $('.resizing').addClass('_resizing')
+    })
+
+    var reInit = _.debounce(function(){
+        console.log(isMobile)
+        console.log($(window).width() > 767)
+        if ($(window).width() < 767 && !isMobile || $(window).width() > 767 && isMobile) {
+            window.location.reload()
+        } else {
+            $('.resizing').removeClass('_resizing')
+            addResizeScreen = _.once(function(){
+                console.log('Resize screen visible')
+                $('.resizing').addClass('_resizing')
+            })
+        }
+    }, 200)
+    $(window).resize(function(){
+        addResizeScreen()
+        reInit()
+    });
+
+    // Setting locale (only russian and english versions now)
+
+    var lang = window.navigator.userLanguage || window.navigator.language
+
+    lang = (function(){
+        if (lang === 'ru') {
+            return 'ru'
+        } else {
+            return 'en'
+        }
+    })()
+
+
+    $.i18n({
+        locale: lang
+    })
+
+
+    $.i18n().load().then(function(){
+        $('body').i18n()
+        translationReady = true
+        setReady()
+    })
+
+
+    $('.lang-switch').on('click', function(){
+        lang = $(this).text().toLowerCase()
+        $.i18n({
+            locale: lang
+        });
+        $.i18n().load().then(function(){
+            $('body').i18n()
+        })
+    })
+
+    initialize()
 
 })

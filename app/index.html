@@ -2,7 +2,7 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>lazytalk_landing</title>
+        <title>Lazytalk | Phone talking reimagined</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="/favicon.ico">
@@ -22,9 +22,19 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+        <div class="resizing">
+
+            <h2>
+                <i class="fa fa-arrows"></i>
+                <p>resizing</p>
+            </h2>
+
+        </div>
+
 
         <section id="top" class="gradient1">
 
+            <!--<div class="map"></div>-->
 
             <button class="lang-switch" data-i18n="langSwitch"></button>
 
@@ -40,7 +50,14 @@
 
                             <h3 data-i18n="topSlogan">You will love phone talks again!</h3>
 
-                            <button><i class="fa fa-apple"></i> <span data-i18n="topGetIt">Get it on AppStore</span></button>
+                            <!--<button><i class="fa fa-apple"></i> <span data-i18n="topGetIt">Get it on AppStore</span></button>-->
+
+                            <div>
+
+                                <button class="stores appstore"></button>
+                                <button class="stores playstore"></button>
+
+                            </div>
 
                         </div>
 
@@ -49,7 +66,15 @@
                     <aside class="col-md-5 visible-md visible-lg">
 
                         <div class="iphone">
-                            <div class="screen"></div>
+                            <div class="screen">
+                                <div class="splash"></div>
+                                <!--<video src="../video/lazytalk_ui.mp4" type="video/mp4" loop autoplay></video>-->
+                                <video id="ui-video" loop>
+                                    <source src="videos/lazytalk_ui.mp4" type="video/mp4">
+                                    <!--<source src="movie.ogg" type="video/ogg">-->
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
                         </div>
 
                     </aside>
@@ -425,6 +450,7 @@
         <script src="../bower_components/ScrollMagic/scrollmagic/uncompressed/plugins/jquery.ScrollMagic.js"></script>
         <script src="../bower_components/jquery.i18n/src/jquery.i18n.js"></script>
         <script src="../bower_components/jquery.i18n/src/jquery.i18n.messagestore.js"></script>
+        <script src="../bower_components/underscore/underscore.js"></script>
         <script src="../bower_components/responsejs/response.js"></script>
         <script src="../bower_components/iscroll/build/iscroll.js"></script>
         <script src="../bower_components/nicescroll/nicescroll.js"></script>
